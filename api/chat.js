@@ -5,7 +5,7 @@ export default async function handler(req, res) {
   try {
     var msg = req.body.messages && req.body.messages[0] ? req.body.messages[0].content : '';
     var useSearch = req.body.tools && req.body.tools.length > 0;
-    var gb = { contents: [{ parts: [{ text: msg }] }], generationConfig: { temperature: 0.7, maxOutputTokens: 8192 } };
+    var gb = { contents: [{ parts: [{ text: msg }] }], generationConfig: { temperature: 0.7, maxOutputTokens: 18192 } };
     if (useSearch) {
       gb.tools = [{ google_search: {} }];
     } else {
