@@ -39,8 +39,8 @@ const BASE_SUBS = [
 ];
 
 function strict(sel) { let m = null; for (const id of sel) { const t = TRANS.find(x => x.id === id); if (!m || (t && t.s > m.s)) m = t; } return m?.id || "flight"; }
-function exJSON(t) { if (!t) return null; let c = t.replace(/```json\s*/gi, "").replace(/```\s*/gi, "").trim(); try { return JSON.parse(c); } catch (e) {} const a = c.indexOf("["), b = c.lastIndexOf("]"), s = c.indexOf("{"), e2 = c.lastIndexOf("}"); if (a >= 0 && (s < 0 || a < s)) { try { return JSON.parse(c.substring(a, b + 1)); } catch (e) {} } if (s >= 0) { try { return JSON.parse(c.substring(s, e2 + 1)); } catch (e) {} } return null; }
-async function api(p, search) { const b = { model: "claude-sonnet-4-20250514", max_tokens: 4096, messages: [{ role: "user", content: p }] }; if (search) b.tools = [{ type: "web_search_20250305", name: "web_search" }]; const r = await fetch("/api/chat", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(b) }); const d = await r.json(); if (d.error) throw new Error(d.error.message); return (d.content || []).filter(x => x.type === "text").map(x => x.text).join("\n"); }
+function exJSON(t) { if (!t) return null; var c = t.replace(/[`]{3}json\s*/gi, "").replace(/[`]{3}\s*/gi, "").trim(); try { return JSON.parse(c); } catch (e) {} var a = c.indexOf("["), b = c.lastIndexOf("]"), s = c.indexOf("{"), e2 = c.lastIndexOf("}"); if (a >= 0 && (s < 0 || a < s)) { try { return JSON.parse(c.substring(a, b + 1)); } catch (e) {} } if (s >= 0) { try { return JSON.parse(c.substring(s, e2 + 1)); } catch (e) {} } return null; }
+async function api(p, search) { const b = { model: "gemini-2.0-flash", max_tokens: 4096, messages: [{ role: "user", content: p }] }; if (search) b.tools = [{ type: "web_search_20250305", name: "web_search" }]; const r = await fetch("/api/chat", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(b) }); const d = await r.json(); if (d.error) throw new Error(d.error.message); return (d.content || []).filter(x => x.type === "text").map(x => x.text).join("\n"); }
 
 export default function App() {
   const [step, setStep] = useState(0);
