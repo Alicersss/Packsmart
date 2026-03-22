@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 var TYPES = [
   { id: "leisure", l: "Leisure", i: "\u{1F3D6}\u{FE0F}" }, { id: "business", l: "Business", i: "\u{1F4BC}" },
